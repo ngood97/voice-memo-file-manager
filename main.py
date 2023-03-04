@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
 	parser.add_argument('voice_memo_dir', help='path to directory of voice memos to be managed')
 
-	args = parser.parse_args()
+	args: argparse.Namespace = parser.parse_args()
 
 	voice_memo_dir: Path = Path(args.voice_memo_dir)
 
