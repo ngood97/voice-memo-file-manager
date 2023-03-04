@@ -1,6 +1,9 @@
 from pathlib import Path
+import random
+import time
 from typing import Iterable, Iterator
 import simpleaudio
+from simpleaudio.shiny import PlayObject
 
 class AudioMemoDirectory(Iterable):
 	def __init__(self, memo_dir: Path):
@@ -43,16 +46,61 @@ class AudioMemo:
 	
 	def get_filepath(self) -> str:
 		raise NotImplemented()
+"▁▂▃▄▅▆▇█"
 
 class RealAudioMemo(AudioMemo):
+	ANIMATION_1 = "|/-\\"
+	thingy = "▇█▇▆▅▄▃▂▁"
+	thingy = "▇█▆▄▂"
 	def __init__(self, filepath: Path):
 		self.filepath = filepath
 		self.is_deleted = False
 
+	@staticmethod
+	def cool_animation_thing_single_character(offset: int = 0):
+		thingy = RealAudioMemo.thingy
+		first = True
+
+		if offset >= len(thingy):
+			raise ValueError(f"offset cannot be longer than {len(thingy) -1}")
+
+		while True:
+			for idx, char in enumerate(thingy):
+				if not (first and idx < offset):
+					yield char
+
+			for i in range(0, random.randint(0, 5)):
+				yield "▁"
+				
+	@staticmethod
+	def cool_animation_thing(length: int = 10):
+		cool_animation_characters = []
+		for i in range(length):
+			offset = random.randint(0, len(RealAudioMemo.thingy) -1)
+			cool_animation_characters.append(RealAudioMemo.cool_animation_thing_single_character(offset))
+		
+		while True:
+			return_str = " "
+			for animator in cool_animation_characters:
+				return_str += next(animator)
+			yield return_str
+
+	@staticmethod
+	def audio_animation_frame_generator():
+		animation = RealAudioMemo.cool_animation_thing()
+		while True:
+			for frame in animation:
+				print(frame, end="\r")
+				yield
+
+
 	def play(self):
 		wave_obj = simpleaudio.WaveObject.from_wave_file(str(self.filepath))
-		play_obj = wave_obj.play()
-		play_obj.wait_done()
+		play_obj: PlayObject = wave_obj.play()
+		frame_generator = self.audio_animation_frame_generator()
+		while play_obj.is_playing():
+			next(frame_generator)
+			time.sleep(0.1)
 
 	def delete(self):
 		self.filepath.unlink(missing_ok=True)
