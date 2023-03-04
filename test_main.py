@@ -1,7 +1,7 @@
 from pathlib import Path
-from audio_manager import AudioMemoDirectory, MockAudioMemoDirectory
-from commands import PreLoadedActionSource
-from main import process_memo_directory
+from voice_memo_file_manager.audio_manager import AudioMemoDirectory, MockAudioMemoDirectory
+from voice_memo_file_manager.commands import PreLoadedActionSource
+from voice_memo_file_manager.__main__ import process_memo_directory
 
 
 def test_skip_works():

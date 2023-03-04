@@ -1,9 +1,9 @@
 import argparse
 from pathlib import Path
-from audio_manager import AudioMemoDirectory
+from voice_memo_file_manager.audio_manager import AudioMemoDirectory
 from InquirerPy import inquirer
 
-from commands import ActionSource, UserInput
+from voice_memo_file_manager.commands import ActionSource, UserInput
 
 def process_memo_directory(action_source: ActionSource, memo_directory: AudioMemoDirectory):
 	for audio_file in memo_directory:
