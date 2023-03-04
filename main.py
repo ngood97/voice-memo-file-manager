@@ -43,6 +43,3 @@ if __name__ == "__main__":
 	voice_memo_dir: Path = Path(args.voice_memo_dir)
 
 	process_memo_directory(voice_memo_dir)
-
-
-
