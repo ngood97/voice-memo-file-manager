@@ -1,6 +1,6 @@
 
 
-from audio_manager import MockAudioDirectory
+from audio_manager import MockAudioMemoDirectory
 from commands import PreLoadedActionSource
 from main import process_memo_directory
 
@@ -8,7 +8,7 @@ from main import process_memo_directory
 def test_skip_works():
 	action_source = PreLoadedActionSource(['play', 'skip', 'play', 'quit'])
 
-	mock_audio_directory = MockAudioDirectory()
+	mock_audio_directory = MockAudioMemoDirectory()
 
 	process_memo_directory(action_source, mock_audio_directory)
 

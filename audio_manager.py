@@ -20,7 +20,7 @@ class AudioMemoDirectory(Iterable):
 				self.current_file_iter = self.memo_dir.glob('*')
 				yield RealAudioMemo(next(self.current_file_iter))
 
-class MockAudioDirectory(AudioMemoDirectory):
+class MockAudioMemoDirectory(AudioMemoDirectory):
 	def __init__(self):
 		self.audio_memos: list[MockAudioMemo] = []
 
