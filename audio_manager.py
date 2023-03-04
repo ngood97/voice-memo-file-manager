@@ -1,13 +1,14 @@
 from pathlib import Path
-from typing import Iterator
+from typing import Iterable, Iterator
 
-class AudioMemoDirectory(Iterator):
+class AudioMemoDirectory(Iterable):
 	def __init__(self, memo_dir: Path):
 		# avoid dot underscore files
 		self.current_file_iter = memo_dir.glob('*')
 
-	def __next__(self):
-		return AudioMemo(next(self.current_file_iter))
+	def __iter__(self) -> 'Iterator[AudioMemo]':
+		yield AudioMemo(next(self.current_file_iter))
+
 
 class AudioMemo:
 	def __init__(self, filepath: Path):
