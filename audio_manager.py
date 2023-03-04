@@ -16,9 +16,7 @@ class AudioMemoDirectory(Iterable):
 			try:
 				yield RealAudioMemo(next(self.current_file_iter))
 			except StopIteration:
-				print("Reached the end of the directory! Restarting from the beginning...")
-				self.current_file_iter = self.memo_dir.glob('*')
-				yield RealAudioMemo(next(self.current_file_iter))
+				return
 
 class MockAudioMemoDirectory(AudioMemoDirectory):
 	def __init__(self):
