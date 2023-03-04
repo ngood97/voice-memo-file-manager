@@ -35,4 +35,11 @@ if __name__ == "__main__":
 
 	voice_memo_dir: Path = Path(args.voice_memo_dir)
 
+	try:
+		next(voice_memo_dir.glob('*'))
+	except StopIteration:
+		print(f'WARNING: No files in directory {voice_memo_dir}')
+
 	process_memo_directory(UserInput(), AudioMemoDirectory(voice_memo_dir))
+
+	print(f'Reached the end of the directory...')
