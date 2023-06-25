@@ -1,4 +1,5 @@
 import argparse
+import os
 from pathlib import Path
 from voice_memo_file_manager.audio_manager import AudioMemoDirectory
 from InquirerPy import inquirer
@@ -7,6 +8,7 @@ from voice_memo_file_manager.commands import ActionSource, UserInput
 
 def process_memo_directory(action_source: ActionSource, memo_directory: AudioMemoDirectory):
 	for audio_file in memo_directory:
+		os.system('clear')
 		print(f'Processing file {audio_file.get_filepath()}')
 		for next_action in action_source:
 			if next_action == 'skip':
